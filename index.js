@@ -77,6 +77,15 @@ app.post('/register', async (req, res) => {
         })
     }
 })
+app.post('/point', async (req,res)=>{
+    let reg_username = req.body.username;
+    let db_user = await User.findOne({"username": reg_username});
+    db_user.completed_tasks += 1;
+    await db_user.save();
+    res.json({
+        status: "Added",
+    })
+})
 //======================================= GET
 app.get('/leaders', async (req, res) => {
     let resp_arr = [];
