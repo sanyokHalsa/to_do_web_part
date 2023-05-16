@@ -80,12 +80,11 @@ app.post('/register', async (req, res) => {
 //======================================= GET
 app.get('/leaders', async (req, res) => {
     let resp_arr = [];
-    let search_res = await User.find({}).sort({ points: -1 }).limit(10);
+    let search_res = await User.find({}).sort({ completed_tasks: -1 }).limit(10);
     for(let i = 0; i<search_res.length;i++){
         search_res[i].username
         resp_arr.push({username:search_res[i].username, tasks:search_res[i].completed_tasks});
     }
-    console.log(resp_arr);
     res.json({
         response: JSON.stringify(resp_arr),
     })
